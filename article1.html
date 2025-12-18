@@ -3,32 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis F1 - Artículo 1</title>
+    <title>f1_data | Algunas métricas de F1</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="autor.html">Sobre el autor</a></li>
-				<li><a href="proyecto.html">Sobre este sitio</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main class="article-main">
-        <article>
-            <h1>Primer artículo del proyecto</h1>
-            <p class="date">14 de Septiembre 2025</p>
-            <div class="article-body">
-                <p>[Placeholder del contenido del artículo]</p>
-            </div>
+    <nav class="nav-bar">
+        <a href="index.html" class="nav-logo">f1_data</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="about.html">Sobre el proyecto</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <article class="full-article">
+            <header class="article-header">
+                <h1 class="section-title">Algunas métricas de F1</h1>
+                <p class="article-meta">Publicado por Gustavo Murillo | Caso de estudio: GP Seleccionado</p>
+            </header>
+
+            <section class="article-body">
+                <p>
+                    La telemetría en la Fórmula 1 no solo sirve para ajustar el monoplaza, sino para cuantificar la eficiencia pura de quien lo conduce. En este artículo exploramos cómo una función lineal simple puede empezar a separar el rendimiento del coche del talento del piloto.
+                </p>
+
+                <!-- Placeholder para Video -->
+                <div class="video-wrapper">
+                    <div class="video-placeholder">
+                        <p>[Embeber Video de YouTube aquí]</p>
+                        <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
+                    </div>
+                </div>
+
+                <h3>1. Estadística Básica de Pilotos</h3>
+                <p>Antes de entrar en modelos complejos, observamos la distribución base de los datos extraídos con FastF1.</p>
+                
+                <!-- Placeholder para Tabla (Recomendación: Grid.js o HTML Puro) -->
+                <div class="data-wrapper">
+                    <div id="drivers-table">
+                        <p class="placeholder-text">Cargando tabla de estadísticas básicas...</p>
+                    </div>
+                </div>
+
+                <h3>2. Métrica Simple: El Punto de Partida</h3>
+                <p>Definimos nuestra primera métrica como una relación directa entre velocidad punta y tiempo por vuelta.</p>
+                
+                <!-- Placeholder para Gráfico Simple (Chart.js) -->
+                <div class="chart-wrapper">
+                    <canvas id="simpleMetricChart"></canvas>
+                    <div class="chart-placeholder">Visualización: Métrica Simple</div>
+                </div>
+
+                <h3>3. Métrica Mejorada: El Modelo Lineal</h3>
+                <p>Introducimos variables de telemetría adicionales (frenado y aceleración lateral) para ajustar la métrica y obtener un ranking más realista.</p>
+
+                <!-- Placeholder para Gráfico Mejorado (Chart.js) -->
+                <div class="chart-wrapper">
+                    <canvas id="improvedMetricChart"></canvas>
+                    <div class="chart-placeholder">Visualización: Modelo Lineal Ponderado</div>
+                </div>
+            </section>
         </article>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Gustavo Murillo Vega</p>
+    <footer class="main-footer">
+        <p>&copy; 2025 f1_data | Gustavo Murillo Vega</p>
     </footer>
+
 </body>
 </html>
