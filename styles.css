@@ -193,6 +193,10 @@ body {
     border-radius: 4px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     margin-bottom: 2rem;
+    /* Reducción de ancho para mejor lectura */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .article-header, .about-header {
@@ -246,6 +250,8 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
+    overflow: hidden;
+    border-radius: 4px;
 }
 
 .chart-wrapper {

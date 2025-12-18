@@ -20,7 +20,7 @@
         <article class="full-article">
             <header class="article-header">
                 <h1 class="section-title">Algunas métricas de F1</h1>
-                <p class="article-meta">Publicado por Gustavo Murillo | Caso de estudio: GP Seleccionado</p>
+                <p class="article-meta">Publicado por Gustavo Murillo | Caso de estudio: Análisis de Rendimiento</p>
             </header>
 
             <section class="article-body">
@@ -28,18 +28,21 @@
                     La telemetría en la Fórmula 1 no solo sirve para ajustar el monoplaza, sino para cuantificar la eficiencia pura de quien lo conduce. En este artículo exploramos cómo una función lineal simple puede empezar a separar el rendimiento del coche del talento del piloto.
                 </p>
 
-                <!-- Placeholder para Video -->
                 <div class="video-wrapper">
-                    <div class="video-placeholder">
-                        <p>[Embeber Video de YouTube aquí]</p>
-                        <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
-                    </div>
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        src="https://www.youtube.com/embed/vBsnDIFbbb4" 
+                        title="F1 Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
                 </div>
 
                 <h3>1. Estadística Básica de Pilotos</h3>
-                <p>Antes de entrar en modelos complejos, observamos la distribución base de los datos extraídos con FastF1.</p>
+                <p>Antes de entrar en modelos complejos, observamos la distribución base de los datos extraídos con FastF1. Esta información estática nos permite entender el punto de partida de cada atleta en el fin de semana.</p>
                 
-                <!-- Placeholder para Tabla (Recomendación: Grid.js o HTML Puro) -->
                 <div class="data-wrapper">
                     <div id="drivers-table">
                         <p class="placeholder-text">Cargando tabla de estadísticas básicas...</p>
@@ -47,22 +50,25 @@
                 </div>
 
                 <h3>2. Métrica Simple: El Punto de Partida</h3>
-                <p>Definimos nuestra primera métrica como una relación directa entre velocidad punta y tiempo por vuelta.</p>
+                <p>Definimos nuestra primera métrica como una relación directa entre velocidad punta y tiempo por vuelta. Aunque útil, esta métrica suele estar sesgada por la potencia del motor del monoplaza.</p>
                 
-                <!-- Placeholder para Gráfico Simple (Chart.js) -->
                 <div class="chart-wrapper">
                     <canvas id="simpleMetricChart"></canvas>
                     <div class="chart-placeholder">Visualización: Métrica Simple</div>
                 </div>
 
                 <h3>3. Métrica Mejorada: El Modelo Lineal</h3>
-                <p>Introducimos variables de telemetría adicionales (frenado y aceleración lateral) para ajustar la métrica y obtener un ranking más realista.</p>
+                <p>Introducimos variables de telemetría adicionales, como la eficiencia en el frenado y la aceleración lateral, para ajustar la métrica y obtener un ranking que refleje mejor la habilidad individual.</p>
 
-                <!-- Placeholder para Gráfico Mejorado (Chart.js) -->
                 <div class="chart-wrapper">
                     <canvas id="improvedMetricChart"></canvas>
                     <div class="chart-placeholder">Visualización: Modelo Lineal Ponderado</div>
                 </div>
+
+                <h3>Conclusión</h3>
+                <p>
+                    A través de este análisis, queda claro que los datos ofrecen una narrativa alternativa a los resultados oficiales. Al aislar ciertas variables de la telemetría, podemos empezar a ver patrones de conducción que definen a los mejores conductores, independientemente de la superioridad técnica de sus máquinas. Este enfoque estático es solo el primer paso hacia una comprensión más profunda de la dinámica piloto-monoplaza.
+                </p>
             </section>
         </article>
     </main>
