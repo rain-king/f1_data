@@ -25,35 +25,44 @@ def extract_all_data():
     # --- 1. TABLA DE RESULTADOS ---
     results = session.results
     
-    # Nombres de columnas actualizados para FastF1 moderno
-    # Usamos .get() o verificamos columnas para evitar KeyError
-    available_cols = results.columns.tolist()
-    target_cols = ['DriverNumber', 'Abbreviation', 'TeamName', 'Position', 'BestLapTime']
-    
-    # Mapeo de seguridad por si cambian los nombres
-    col_map = {
+    # En Qualifying, el mejor tiempo suele estar en Q1, Q2 o Q3
+    # Creamos una columna 'BestTime' calculada
+    q_columns = [col for col in ['Q1', 'Q2', 'Q3'] if col in results.columns]
+    results['BestTime'] = results[q_columns].min(axis=1)
+
+    # Seleccionamos columnas existentes para evitar KeyError
+    target_map = {
         'DriverNumber': 'Number',
         'Abbreviation': 'Driver',
         'TeamName': 'Team',
         'Position': 'Pos',
-        'BestLapTime': 'Time'
+        'BestTime': 'Time'
     }
-
-    df_results = results[[c for c in target_cols if c in available_cols]].copy()
-    df_results = df_results.rename(columns=col_map)
     
-    # Formatear tiempo para JSON
+    available_cols = [col for col in target_map.keys() if col in results.columns]
+    df_results = results[available_cols].copy()
+    df_results = df_results.rename(columns=target_map)
+    
+    # Limpieza de Posición y formateo de Tiempo
+    if 'Pos' in df_results.columns:
+        df_results['Pos'] = df_results['Pos'].fillna(0).astype(int)
+    
+    def format_time(x):
+        if pd.isnull(x) or str(x) == 'NaT': return "No Time"
+        ts = x.total_seconds()
+        minutes = int(ts // 60)
+        seconds = ts % 60
+        return f"{minutes}:{seconds:06.3f}"
+
     if 'Time' in df_results.columns:
-        df_results['Time'] = df_results['Time'].apply(
-            lambda x: str(x).split('days ')[-1][3:-3] if pd.notnull(x) else "N/A"
-        )
+        df_results['Time'] = df_results['Time'].apply(format_time)
     
     with open(os.path.join(DATA_DIR, 'qualifying_results.json'), 'w', encoding='utf-8') as f:
         json.dump(df_results.to_dict(orient='records'), f, indent=4, ensure_ascii=False)
 
     # --- MÉTRICAS DE TELEMETRÍA ---
     metric1_data = [] # Top Speed
-    metric2_data = [] # Brake Efficiency index
+    metric2_data = [] # Brake Efficiency
 
     drivers = results['Abbreviation'].unique()
 
@@ -62,10 +71,9 @@ def extract_all_data():
             lap = session.laps.pick_driver(drv).pick_fastest()
             if lap is None: continue
             
-            # Solo descargamos telemetría de la vuelta más rápida (ligero)
             tel = lap.get_telemetry()
             
-            # Métrica 1: Top Speed
+            # Métrica 1: Top Speed (km/h)
             max_speed = int(tel['Speed'].max())
             metric1_data.append({
                 "driver": drv,
@@ -74,15 +82,12 @@ def extract_all_data():
             })
 
             # Métrica 2: Brake Efficiency
-            # Calculamos la desaceleración media durante el frenado activo
             tel['DeltaSpeed'] = tel['Speed'].diff()
             braking = tel[tel['Brake'] == True].copy()
             
             if not braking.empty:
-                # Deceleración media (km/h por muestra)
                 avg_decel = abs(braking['DeltaSpeed'].mean())
-                # Escala arbitraria para visualización (0-10)
-                brake_score = round(min(avg_decel * 10, 10), 2)
+                brake_score = round(avg_decel * 5, 2) 
             else:
                 brake_score = 0
 
@@ -95,14 +100,14 @@ def extract_all_data():
         except Exception as e:
             print(f"Error con {drv}: {e}")
 
-    # Exportar JSONs agregados (muy pequeños, <10KB cada uno)
+    # Exportar métricas
     with open(os.path.join(DATA_DIR, 'metrica1.json'), 'w', encoding='utf-8') as f:
         json.dump(metric1_data, f, indent=4, ensure_ascii=False)
         
     with open(os.path.join(DATA_DIR, 'metrica2.json'), 'w', encoding='utf-8') as f:
         json.dump(metric2_data, f, indent=4, ensure_ascii=False)
 
-    print(f"Exportación exitosa. JSONs generados en {DATA_DIR}")
+    print(f"Archivos JSON actualizados con éxito en {DATA_DIR}")
 
 if __name__ == "__main__":
     extract_all_data()

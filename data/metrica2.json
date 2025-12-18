@@ -1,102 +1,102 @@
 [
     {
         "driver": "VER",
-        "value": 10,
+        "value": 42.92,
         "pos": 1
     },
     {
         "driver": "HAM",
-        "value": 10,
+        "value": 44.46,
         "pos": 2
     },
     {
         "driver": "NOR",
-        "value": 10,
+        "value": 42.72,
         "pos": 3
     },
     {
         "driver": "PER",
-        "value": 10,
+        "value": 45.91,
         "pos": 4
     },
     {
         "driver": "SAI",
-        "value": 10,
+        "value": 44.55,
         "pos": 5
     },
     {
         "driver": "BOT",
-        "value": 10,
+        "value": 45.09,
         "pos": 6
     },
     {
         "driver": "LEC",
-        "value": 10,
+        "value": 44.48,
         "pos": 7
     },
     {
         "driver": "TSU",
-        "value": 10,
+        "value": 45.49,
         "pos": 8
     },
     {
         "driver": "OCO",
-        "value": 10,
+        "value": 47.33,
         "pos": 9
     },
     {
         "driver": "RIC",
-        "value": 10,
+        "value": 47.87,
         "pos": 10
     },
     {
         "driver": "ALO",
-        "value": 10,
+        "value": 41.12,
         "pos": 11
     },
     {
         "driver": "GAS",
-        "value": 10,
+        "value": 46.54,
         "pos": 12
     },
     {
         "driver": "STR",
-        "value": 10,
+        "value": 40.81,
         "pos": 13
     },
     {
         "driver": "GIO",
-        "value": 10,
+        "value": 42.98,
         "pos": 14
     },
     {
         "driver": "VET",
-        "value": 10,
+        "value": 41.56,
         "pos": 15
     },
     {
         "driver": "LAT",
-        "value": 10,
+        "value": 44.41,
         "pos": 16
     },
     {
         "driver": "RUS",
-        "value": 10,
+        "value": 41.48,
         "pos": 17
     },
     {
         "driver": "RAI",
-        "value": 10,
+        "value": 42.43,
         "pos": 18
     },
     {
         "driver": "MSC",
-        "value": 10,
+        "value": 37.79,
         "pos": 19
     },
     {
         "driver": "MAZ",
-        "value": 10,
+        "value": 37.9,
         "pos": 20
     }
 ]

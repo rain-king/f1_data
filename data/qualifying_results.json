@@ -3,120 +3,140 @@
         "Number": "33",
         "Driver": "VER",
         "Team": "Red Bull Racing",
-        "Pos": 1.0
+        "Pos": 1,
+        "Time": "1:22.109"
     },
     {
         "Number": "44",
         "Driver": "HAM",
         "Team": "Mercedes",
-        "Pos": 2.0
+        "Pos": 2,
+        "Time": "1:22.480"
     },
     {
         "Number": "4",
         "Driver": "NOR",
         "Team": "McLaren",
-        "Pos": 3.0
+        "Pos": 3,
+        "Time": "1:22.931"
     },
     {
         "Number": "11",
         "Driver": "PER",
         "Team": "Red Bull Racing",
-        "Pos": 4.0
+        "Pos": 4,
+        "Time": "1:22.947"
     },
     {
         "Number": "55",
         "Driver": "SAI",
         "Team": "Ferrari",
-        "Pos": 5.0
+        "Pos": 5,
+        "Time": "1:22.992"
     },
     {
         "Number": "77",
         "Driver": "BOT",
         "Team": "Mercedes",
-        "Pos": 6.0
+        "Pos": 6,
+        "Time": "1:23.036"
     },
     {
         "Number": "16",
         "Driver": "LEC",
         "Team": "Ferrari",
-        "Pos": 7.0
+        "Pos": 7,
+        "Time": "1:23.122"
     },
     {
         "Number": "22",
         "Driver": "TSU",
         "Team": "AlphaTauri",
-        "Pos": 8.0
+        "Pos": 8,
+        "Time": "1:23.220"
     },
     {
         "Number": "31",
         "Driver": "OCO",
         "Team": "Alpine",
-        "Pos": 9.0
+        "Pos": 9,
+        "Time": "1:23.389"
     },
     {
         "Number": "3",
         "Driver": "RIC",
         "Team": "McLaren",
-        "Pos": 10.0
+        "Pos": 10,
+        "Time": "1:23.409"
     },
     {
         "Number": "14",
         "Driver": "ALO",
         "Team": "Alpine",
-        "Pos": 11.0
+        "Pos": 11,
+        "Time": "1:23.460"
     },
     {
         "Number": "10",
         "Driver": "GAS",
         "Team": "AlphaTauri",
-        "Pos": 12.0
+        "Pos": 12,
+        "Time": "1:23.489"
     },
     {
         "Number": "18",
         "Driver": "STR",
         "Team": "Aston Martin",
-        "Pos": 13.0
+        "Pos": 13,
+        "Time": "1:24.061"
     },
     {
         "Number": "99",
         "Driver": "GIO",
         "Team": "Alfa Romeo Racing",
-        "Pos": 14.0
+        "Pos": 14,
+        "Time": "1:24.118"
     },
     {
         "Number": "5",
         "Driver": "VET",
         "Team": "Aston Martin",
-        "Pos": 15.0
+        "Pos": 15,
+        "Time": "1:24.225"
     },
     {
         "Number": "6",
         "Driver": "LAT",
         "Team": "Williams",
-        "Pos": 16.0
+        "Pos": 16,
+        "Time": "1:24.338"
     },
     {
         "Number": "63",
         "Driver": "RUS",
         "Team": "Williams",
-        "Pos": 17.0
+        "Pos": 17,
+        "Time": "1:24.423"
     },
     {
         "Number": "7",
         "Driver": "RAI",
         "Team": "Alfa Romeo Racing",
-        "Pos": 18.0
+        "Pos": 18,
+        "Time": "1:24.779"
     },
     {
         "Number": "47",
         "Driver": "MSC",
         "Team": "Haas F1 Team",
-        "Pos": 19.0
+        "Pos": 19,
+        "Time": "1:24.906"
     },
     {
         "Number": "9",
         "Driver": "MAZ",
         "Team": "Haas F1 Team",
-        "Pos": 20.0
+        "Pos": 20,
+        "Time": "1:25.685"
     }
 ]
