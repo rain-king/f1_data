@@ -1,0 +1,102 @@
+[
+    {
+        "driver": "VER",
+        "value": 10,
+        "pos": 1
+    },
+    {
+        "driver": "HAM",
+        "value": 10,
+        "pos": 2
+    },
+    {
+        "driver": "NOR",
+        "value": 10,
+        "pos": 3
+    },
+    {
+        "driver": "PER",
+        "value": 10,
+        "pos": 4
+    },
+    {
+        "driver": "SAI",
+        "value": 10,
+        "pos": 5
+    },
+    {
+        "driver": "BOT",
+        "value": 10,
+        "pos": 6
+    },
+    {
+        "driver": "LEC",
+        "value": 10,
+        "pos": 7
+    },
+    {
+        "driver": "TSU",
+        "value": 10,
+        "pos": 8
+    },
+    {
+        "driver": "OCO",
+        "value": 10,
+        "pos": 9
+    },
+    {
+        "driver": "RIC",
+        "value": 10,
+        "pos": 10
+    },
+    {
+        "driver": "ALO",
+        "value": 10,
+        "pos": 11
+    },
+    {
+        "driver": "GAS",
+        "value": 10,
+        "pos": 12
+    },
+    {
+        "driver": "STR",
+        "value": 10,
+        "pos": 13
+    },
+    {
+        "driver": "GIO",
+        "value": 10,
+        "pos": 14
+    },
+    {
+        "driver": "VET",
+        "value": 10,
+        "pos": 15
+    },
+    {
+        "driver": "LAT",
+        "value": 10,
+        "pos": 16
+    },
+    {
+        "driver": "RUS",
+        "value": 10,
+        "pos": 17
+    },
+    {
+        "driver": "RAI",
+        "value": 10,
+        "pos": 18
+    },
+    {
+        "driver": "MSC",
+        "value": 10,
+        "pos": 19
+    },
+    {
+        "driver": "MAZ",
+        "value": 10,
+        "pos": 20
+    }
+]

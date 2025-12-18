@@ -1,0 +1,102 @@
+[
+    {
+        "driver": "VER",
+        "value": 325,
+        "pos": 1
+    },
+    {
+        "driver": "HAM",
+        "value": 321,
+        "pos": 2
+    },
+    {
+        "driver": "NOR",
+        "value": 322,
+        "pos": 3
+    },
+    {
+        "driver": "PER",
+        "value": 328,
+        "pos": 4
+    },
+    {
+        "driver": "SAI",
+        "value": 323,
+        "pos": 5
+    },
+    {
+        "driver": "BOT",
+        "value": 321,
+        "pos": 6
+    },
+    {
+        "driver": "LEC",
+        "value": 324,
+        "pos": 7
+    },
+    {
+        "driver": "TSU",
+        "value": 324,
+        "pos": 8
+    },
+    {
+        "driver": "OCO",
+        "value": 326,
+        "pos": 9
+    },
+    {
+        "driver": "RIC",
+        "value": 322,
+        "pos": 10
+    },
+    {
+        "driver": "ALO",
+        "value": 325,
+        "pos": 11
+    },
+    {
+        "driver": "GAS",
+        "value": 322,
+        "pos": 12
+    },
+    {
+        "driver": "STR",
+        "value": 322,
+        "pos": 13
+    },
+    {
+        "driver": "GIO",
+        "value": 327,
+        "pos": 14
+    },
+    {
+        "driver": "VET",
+        "value": 320,
+        "pos": 15
+    },
+    {
+        "driver": "LAT",
+        "value": 324,
+        "pos": 16
+    },
+    {
+        "driver": "RUS",
+        "value": 324,
+        "pos": 17
+    },
+    {
+        "driver": "RAI",
+        "value": 324,
+        "pos": 18
+    },
+    {
+        "driver": "MSC",
+        "value": 326,
+        "pos": 19
+    },
+    {
+        "driver": "MAZ",
+        "value": 326,
+        "pos": 20
+    }
+]
