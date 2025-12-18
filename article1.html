@@ -38,7 +38,7 @@
                 </div>
 
                 <h3>1. Tabla de Resultados de Clasificación</h3>
-                <p>Estos son los datos oficiales extraídos de la sesión. Servirán como nuestra "base real" para comparar con las métricas predictivas.</p>
+                <p>Estos son los datos oficiales extraídos de la sesión de clasificación.</p>
                 
                 <div class="data-wrapper">
                     <table class="f1-table" id="resultsTable">
@@ -58,7 +58,7 @@
 
                 <h3>2. Métrica Simple: Velocidad Punta vs. Posición Real</h3>
                 <p>
-                    Muchos asumen que el coche más rápido en línea recta ganará la clasificación. El gráfico muestra la <strong>Velocidad Punta (Predictor)</strong> frente a la <strong>Posición Final (Real)</strong>. Como se observa, alcanzar 328 km/h (Pérez) no garantizó la Pole, lo que demuestra que la velocidad pura es un predictor pobre por sí solo.
+                    El gráfico muestra la <strong>Velocidad Punta</strong> frente a la <strong>Posición Final</strong>. Observa cómo la velocidad máxima no garantiza las posiciones de privilegio.
                 </p>
                 
                 <div class="chart-wrapper">
@@ -67,16 +67,18 @@
 
                 <h3>3. Métrica Mejorada: Eficiencia de Frenado</h3>
                 <p>
-                    Esta métrica analiza la capacidad de desaceleración en la vuelta más rápida. Un valor más alto indica un uso más agresivo y eficiente del freno. Al comparar esta <strong>Métrica de Frenado</strong> con la <strong>Posición Real</strong>, vemos una dispersión mayor que sugiere que el control en zona de frenado es un factor más determinante que la velocidad punta.
+                    Esta métrica analiza la capacidad de desaceleración. Los valores más altos suelen concentrarse en los pilotos que logran mejores tiempos de vuelta.
                 </p>
 
                 <div class="chart-wrapper">
                     <canvas id="chartMetric2"></canvas>
                 </div>
 
+                <div id="status-message"></div>
+
                 <h3>Conclusión</h3>
                 <p>
-                    El análisis revela que intentar predecir el éxito en F1 mediante una función lineal de una sola variable es insuficiente. Mientras que la velocidad punta depende del motor, la eficiencia de frenado refleja la interacción técnica entre el piloto y el chasis. Los modelos simplificados fallan al no considerar la aerodinámica y la consistencia en curva, elementos que finalmente definen quién se lleva la Pole.
+                    El análisis revela que los modelos simplificados fallan al no considerar la aerodinámica y la consistencia en curva, elementos que finalmente definen quién se lleva la Pole.
                 </p>
             </section>
         </article>
@@ -87,98 +89,122 @@
     </footer>
 
     <script>
-        // Función auxiliar para realizar fetch de forma segura
+        /**
+         * Función simplificada para cargar JSON. 
+         * El uso de fetch con rutas relativas es lo más estándar para servidores web.
+         */
         async function fetchJSON(path) {
-            // Se asegura que la ruta sea relativa al origen actual de forma explícita
-            const response = await fetch(`./${path}`);
-            if (!response.ok) {
-                throw new Error(`No se pudo cargar el archivo: ${path} (Status: ${response.status})`);
+            try {
+                // Fetch directo. Es lo más compatible para GitHub Pages y servidores locales.
+                const response = await fetch(path);
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status} al intentar cargar ${path}`);
+                }
+                return await response.json();
+            } catch (e) {
+                console.error(`Error cargando el archivo ${path}:`, e);
+                throw e;
             }
-            return await response.json();
         }
 
         async function loadData() {
+            const status = document.getElementById('status-message');
             try {
-                // 1. Cargar y renderizar Tabla
+                // 1. Cargar Resultados de Clasificación
                 const dataResults = await fetchJSON('data/qualifying_results.json');
                 const tableBody = document.querySelector('#resultsTable tbody');
-                
-                // Limpiar tabla antes de insertar (por si acaso)
                 tableBody.innerHTML = '';
                 
-                dataResults.slice(0, 10).forEach(row => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${row.Pos || 'N/A'}</td>
-                        <td><strong>${row.Driver || '---'}</strong></td>
-                        <td>${row.Team || '---'}</td>
-                        <td>${row.Time || '--:--.---'}</td>
-                    `;
-                    tableBody.appendChild(tr);
-                });
+                if (dataResults && Array.isArray(dataResults)) {
+                    // Tomamos los primeros 10 para la tabla principal
+                    dataResults.slice(0, 10).forEach(row => {
+                        const tr = document.createElement('tr');
+                        // Soporte para variaciones de nombres de columnas
+                        const pos = row.Pos ?? row.pos ?? row.Position ?? 'N/A';
+                        const driver = row.Driver ?? row.driver ?? row.Abbreviation ?? '---';
+                        const team = row.Team ?? row.team ?? row.TeamName ?? '---';
+                        const time = row.Time ?? row.time ?? '---';
+                        
+                        tr.innerHTML = `
+                            <td>${pos}</td>
+                            <td><strong>${driver}</strong></td>
+                            <td>${team}</td>
+                            <td>${time}</td>
+                        `;
+                        tableBody.appendChild(tr);
+                    });
+                }
 
                 // 2. Gráfico Métrica 1 (Velocidad Punta)
                 const dataM1 = await fetchJSON('data/metrica1.json');
-                
-                new Chart(document.getElementById('chartMetric1'), {
-                    type: 'scatter',
-                    data: {
-                        datasets: [{
-                            label: 'Velocidad vs Posición',
-                            data: dataM1.map(d => ({ x: d.value, y: d.pos })),
-                            backgroundColor: '#e10600'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            x: { title: { display: true, text: 'Top Speed (km/h)', color: '#15151e' } },
-                            y: { 
-                                reverse: true, 
-                                title: { display: true, text: 'Posición Real', color: '#15151e' }, 
-                                min: 1, 
-                                max: 20,
-                                ticks: { stepSize: 1 }
+                if (dataM1 && Array.isArray(dataM1)) {
+                    new Chart(document.getElementById('chartMetric1'), {
+                        type: 'scatter',
+                        data: {
+                            datasets: [{
+                                label: 'Velocidad (km/h) vs Posición',
+                                data: dataM1.map(d => ({ 
+                                    x: d.value ?? d.top_speed, 
+                                    y: d.pos ?? d.position 
+                                })),
+                                backgroundColor: '#e10600',
+                                pointRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: { title: { display: true, text: 'Velocidad Punta (km/h)' } },
+                                y: { 
+                                    reverse: true, 
+                                    title: { display: true, text: 'Posición Real' },
+                                    min: 1, 
+                                    max: 20,
+                                    ticks: { stepSize: 1 }
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
 
                 // 3. Gráfico Métrica 2 (Eficiencia Frenado)
                 const dataM2 = await fetchJSON('data/metrica2.json');
-                
-                new Chart(document.getElementById('chartMetric2'), {
-                    type: 'bar',
-                    data: {
-                        labels: dataM2.map(d => d.driver),
-                        datasets: [{
-                            label: 'Índice de Frenado',
-                            data: dataM2.map(d => d.value),
-                            backgroundColor: dataM2.map(d => d.pos <= 3 ? '#e10600' : '#38383f')
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: { title: { display: true, text: 'Eficiencia (Escala Relativa)', color: '#15151e' } }
+                if (dataM2 && Array.isArray(dataM2)) {
+                    new Chart(document.getElementById('chartMetric2'), {
+                        type: 'bar',
+                        data: {
+                            labels: dataM2.map(d => d.driver ?? d.Driver),
+                            datasets: [{
+                                label: 'Índice de Frenado',
+                                data: dataM2.map(d => d.value ?? d.brake_efficiency),
+                                backgroundColor: dataM2.map(d => (d.pos ?? d.position) <= 3 ? '#e10600' : '#38383f')
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: { 
+                                    beginAtZero: true,
+                                    title: { display: true, text: 'Eficiencia de Desaceleración' }
+                                }
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
             } catch (error) {
-                console.error("Error cargando los datos:", error);
-                const articleBody = document.querySelector('.article-body');
-                const errorMsg = document.createElement('p');
-                errorMsg.style.color = 'red';
-                errorMsg.style.fontWeight = 'bold';
-                errorMsg.textContent = 'Hubo un error al cargar los datos. Por favor, asegúrate de que la carpeta "data" contenga los archivos JSON necesarios.';
-                articleBody.prepend(errorMsg);
+                console.error("Fallo general al cargar datos:", error);
+                status.innerHTML = `
+                    <div style="color:#e10600; padding:20px; border:1px solid #e10600; border-radius:4px; background:#fff5f5; margin-top:20px;">
+                        <strong>⚠️ Error al cargar los datos:</strong> ${error.message}<br><br>
+                        <small>Asegúrate de que la carpeta <code>data/</code> contenga los archivos JSON necesarios y que el sitio se esté ejecutando desde un servidor web (GitHub Pages o similar).</small>
+                    </div>`;
             }
         }
 
-        window.onload = loadData;
+        window.addEventListener('load', loadData);
     </script>
 </body>
 </html>
