@@ -3,42 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis F1 - Inicio</title>
+    <title>f1_data | Portal de Análisis</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="autor.html">Sobre el autor</a></li>
-				<li><a href="proyecto.html">Sobre este sitio</a></li>
-            </ul>
-        </nav>
+
+    <nav class="nav-bar">
+        <a href="index.html" class="nav-logo">f1_data</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="about.html">Sobre el proyecto</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>Análisis de Telemetría</h1>
+        <p>Explorando el rendimiento de los pilotos a través de datos estáticos extraídos con FastF1 y procesados con Pandas.</p>
     </header>
 
-    <main class="inicio-main">
-        <h1>Lista de Artículos</h1>
-        <article class="article-preview">
-            <img src="assets/max-verstappen-red-bull-racing.webp" alt="Miniatura de artículo 1">
-            <div class="article-info">
-                <h2><a href="article1.html">Telemetría de F1 en Python</a></h2>
-                <p class="description">Aquí se presentará el artículo principal del proyecto.</p>
-                <p class="date">14 de Septiembre 2025</p>
-            </div>
-        </article>
-        <article class="article-preview">
-            <img src="" alt="Miniatura de artículo 2">
-            <div class="article-info">
-                <h2><a href="article2.html">Artículo de Relleno</a></h2>
-                <p class="description">Este es un segundo artículo vacío para mostrar estructura.</p>
-                <p class="date">10 de Septiembre 2025</p>
-            </div>
-        </article>
+    <main class="container">
+        <h2 class="section-title">Análisis Principal</h2>
+        
+        <div class="articles-grid">
+            <article class="article-card">
+                <div class="card-image">
+                    [Imagen de Telemetría Comparativa]
+                </div>
+                <div class="card-body">
+                    <h2>Algunas métricas de F1</h2>
+                    <p>Un estudio técnico sobre la eficiencia de los pilotos mediante modelos lineales, analizando la relación entre velocidad, aceleración y tiempo por vuelta.</p>
+                    <a href="article1.html" class="btn-read">Leer Artículo</a>
+                </div>
+            </article>
+
+            <article class="article-card disabled">
+                <div class="card-image">En preparación</div>
+                <div class="card-body">
+                    <h2>Futuro Análisis</h2>
+                    <p>Espacio reservado para nuevas investigaciones sobre datos históricos y rendimiento de escuderías.</p>
+                    <span class="btn-read-disabled">Próximamente</span>
+                </div>
+            </article>
+        </div>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Gustavo Murillo Vega</p>
+    <footer class="main-footer">
+        <p>&copy; 2025 f1_data | Gustavo Murillo Vega</p>
     </footer>
+
 </body>
 </html>
