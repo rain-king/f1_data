@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>f1_data | Algunas métricas de F1</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js para las visualizaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -20,48 +22,61 @@
         <article class="full-article">
             <header class="article-header">
                 <h1 class="section-title">Algunas métricas de F1</h1>
-                <p class="article-meta">Publicado por Gustavo Murillo | Caso de estudio: Análisis de Rendimiento</p>
+                <p class="article-meta">Publicado por Gustavo Murillo | Caso de estudio: Abu Dhabi 2021 (Qualifying)</p>
             </header>
 
             <section class="article-body">
                 <p>
-                    La telemetría en la Fórmula 1 no solo sirve para ajustar el monoplaza, sino para cuantificar la eficiencia pura de quien lo conduce. En este artículo exploramos cómo una función lineal simple puede empezar a separar el rendimiento del coche del talento del piloto.
+                    La telemetría en la Fórmula 1 permite cuantificar la eficiencia pura del piloto. En este análisis, comparamos datos reales de clasificación con dos métricas calculadas para observar qué tanto influyen en el resultado final (Pole Position).
                 </p>
 
-                <!-- Miniatura de YouTube vinculada para evitar errores de embed -->
-                <a href="https://www.youtube.com/watch?v=vBsnDIFbbb4" target="_blank" class="video-wrapper">
-                    <img src="https://img.youtube.com/vi/vBsnDIFbbb4/maxresdefault.jpg" alt="Miniatura Video F1">
-                    <div class="play-button"></div>
-                </a>
+                <div class="video-wrapper">
+                    <a href="https://www.youtube.com/watch?v=vBsnDIFbbb4" target="_blank" style="width: 100%; height: 100%; display: block; position: relative;">
+                        <img src="https://img.youtube.com/vi/vBsnDIFbbb4/maxresdefault.jpg" alt="Miniatura Video F1" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.7;">
+                        <div class="play-button"></div>
+                    </a>
+                </div>
 
-                <h3>1. Estadística Básica de Pilotos</h3>
-                <p>Antes de entrar en modelos complejos, observamos la distribución base de los datos extraídos con FastF1. Esta información estática nos permite entender el punto de partida de cada atleta en el fin de semana.</p>
+                <h3>1. Tabla de Resultados de Clasificación</h3>
+                <p>Estos son los datos oficiales extraídos de la sesión. Servirán como nuestra "base real" para comparar con las métricas predictivas.</p>
                 
                 <div class="data-wrapper">
-                    <div id="drivers-table">
-                        <p class="placeholder-text">Cargando tabla de estadísticas básicas...</p>
-                    </div>
+                    <table class="f1-table" id="resultsTable">
+                        <thead>
+                            <tr>
+                                <th>Pos</th>
+                                <th>Piloto</th>
+                                <th>Equipo</th>
+                                <th>Tiempo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Inyectado por JS -->
+                        </tbody>
+                    </table>
                 </div>
 
-                <h3>2. Métrica Simple: El Punto de Partida</h3>
-                <p>Definimos nuestra primera métrica como una relación directa entre velocidad punta y tiempo por vuelta. Aunque útil, esta métrica suele estar sesgada por la potencia del motor del monoplaza.</p>
+                <h3>2. Métrica Simple: Velocidad Punta vs. Posición Real</h3>
+                <p>
+                    Muchos asumen que el coche más rápido en línea recta ganará la clasificación. El gráfico muestra la <strong>Velocidad Punta (Predictor)</strong> frente a la <strong>Posición Final (Real)</strong>. Como se observa, alcanzar 328 km/h (Pérez) no garantizó la Pole, lo que demuestra que la velocidad pura es un predictor pobre por sí solo.
+                </p>
                 
                 <div class="chart-wrapper">
-                    <canvas id="simpleMetricChart"></canvas>
-                    <div class="chart-placeholder">Visualización: Métrica Simple</div>
+                    <canvas id="chartMetric1"></canvas>
                 </div>
 
-                <h3>3. Métrica Mejorada: El Modelo Lineal</h3>
-                <p>Introducimos variables de telemetría adicionales, como la eficiencia en el frenado y la aceleración lateral, para ajustar la métrica y obtener un ranking que refleje mejor la habilidad individual.</p>
+                <h3>3. Métrica Mejorada: Eficiencia de Frenado</h3>
+                <p>
+                    Esta métrica analiza la capacidad de desaceleración en la vuelta más rápida. Un valor más alto indica un uso más agresivo y eficiente del freno. Al comparar esta <strong>Métrica de Frenado</strong> con la <strong>Posición Real</strong>, vemos una dispersión mayor que sugiere que el control en zona de frenado es un factor más determinante que la velocidad punta.
+                </p>
 
                 <div class="chart-wrapper">
-                    <canvas id="improvedMetricChart"></canvas>
-                    <div class="chart-placeholder">Visualización: Modelo Lineal Ponderado</div>
+                    <canvas id="chartMetric2"></canvas>
                 </div>
 
                 <h3>Conclusión</h3>
                 <p>
-                    A través de este análisis, queda claro que los datos ofrecen una narrativa alternativa a los resultados oficiales. Al aislar ciertas variables de la telemetría, podemos empezar a ver patrones de conducción que definen a los mejores conductores, independientemente de la superioridad técnica de sus máquinas.
+                    El análisis revela que intentar predecir el éxito en F1 mediante una función lineal de una sola variable es insuficiente. Mientras que la velocidad punta depende del motor, la eficiencia de frenado refleja la interacción técnica entre el piloto y el chasis. Los modelos simplificados fallan al no considerar la aerodinámica y la consistencia en curva, elementos que finalmente definen quién se lleva la Pole.
                 </p>
             </section>
         </article>
@@ -71,5 +86,99 @@
         <p>&copy; 2025 f1_data | Gustavo Murillo Vega</p>
     </footer>
 
+    <script>
+        // Función auxiliar para realizar fetch de forma segura
+        async function fetchJSON(path) {
+            // Se asegura que la ruta sea relativa al origen actual de forma explícita
+            const response = await fetch(`./${path}`);
+            if (!response.ok) {
+                throw new Error(`No se pudo cargar el archivo: ${path} (Status: ${response.status})`);
+            }
+            return await response.json();
+        }
+
+        async function loadData() {
+            try {
+                // 1. Cargar y renderizar Tabla
+                const dataResults = await fetchJSON('data/qualifying_results.json');
+                const tableBody = document.querySelector('#resultsTable tbody');
+                
+                // Limpiar tabla antes de insertar (por si acaso)
+                tableBody.innerHTML = '';
+                
+                dataResults.slice(0, 10).forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.Pos || 'N/A'}</td>
+                        <td><strong>${row.Driver || '---'}</strong></td>
+                        <td>${row.Team || '---'}</td>
+                        <td>${row.Time || '--:--.---'}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+
+                // 2. Gráfico Métrica 1 (Velocidad Punta)
+                const dataM1 = await fetchJSON('data/metrica1.json');
+                
+                new Chart(document.getElementById('chartMetric1'), {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Velocidad vs Posición',
+                            data: dataM1.map(d => ({ x: d.value, y: d.pos })),
+                            backgroundColor: '#e10600'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { title: { display: true, text: 'Top Speed (km/h)', color: '#15151e' } },
+                            y: { 
+                                reverse: true, 
+                                title: { display: true, text: 'Posición Real', color: '#15151e' }, 
+                                min: 1, 
+                                max: 20,
+                                ticks: { stepSize: 1 }
+                            }
+                        }
+                    }
+                });
+
+                // 3. Gráfico Métrica 2 (Eficiencia Frenado)
+                const dataM2 = await fetchJSON('data/metrica2.json');
+                
+                new Chart(document.getElementById('chartMetric2'), {
+                    type: 'bar',
+                    data: {
+                        labels: dataM2.map(d => d.driver),
+                        datasets: [{
+                            label: 'Índice de Frenado',
+                            data: dataM2.map(d => d.value),
+                            backgroundColor: dataM2.map(d => d.pos <= 3 ? '#e10600' : '#38383f')
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { title: { display: true, text: 'Eficiencia (Escala Relativa)', color: '#15151e' } }
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error cargando los datos:", error);
+                const articleBody = document.querySelector('.article-body');
+                const errorMsg = document.createElement('p');
+                errorMsg.style.color = 'red';
+                errorMsg.style.fontWeight = 'bold';
+                errorMsg.textContent = 'Hubo un error al cargar los datos. Por favor, asegúrate de que la carpeta "data" contenga los archivos JSON necesarios.';
+                articleBody.prepend(errorMsg);
+            }
+        }
+
+        window.onload = loadData;
+    </script>
 </body>
 </html>

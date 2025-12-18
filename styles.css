@@ -61,7 +61,7 @@ body {
     color: var(--f1-red);
 }
 
-/* Hero / Header */
+/* Hero */
 .hero {
     background-color: var(--carbon-black);
     color: var(--clean-white);
@@ -99,7 +99,7 @@ body {
     padding-left: 1rem;
 }
 
-/* Grid de Artículos */
+/* Grid de Artículos (Index) */
 .articles-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -121,17 +121,21 @@ body {
     box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 
+.article-card.disabled {
+    opacity: 0.6;
+}
+
 .card-image {
     width: 100%;
-    height: 200px;
+    height: 220px;
     background: var(--track-gray);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--clean-white);
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.8rem;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .card-body {
@@ -147,79 +151,102 @@ body {
     line-height: 1.2;
 }
 
-.btn-read {
+/* Botones */
+.btn-read, .btn-read-disabled {
     align-self: flex-start;
     padding: 0.8rem 1.5rem;
-    background: var(--f1-red);
-    color: var(--clean-white);
     text-decoration: none;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 0.8rem;
     border-radius: 2px;
     transition: var(--transition);
+    border: none;
+    cursor: pointer;
 }
 
-/* Estilos de Contenido (Ajustados a 800px) */
+.btn-read {
+    background: var(--f1-red);
+    color: var(--clean-white);
+}
+
+.btn-read:hover {
+    background: var(--carbon-black);
+}
+
+.btn-read-disabled {
+    background: var(--track-gray);
+    color: var(--clean-white);
+    cursor: not-allowed;
+}
+
+/* Diseño de Artículo y About (Ancho de lectura optimizado) */
 .full-article, .about-section {
     background: var(--clean-white);
     padding: 3rem;
     border-radius: 4px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    margin-bottom: 2rem;
-    /* Ajuste de ancho máximo solicitado */
+    margin: 0 auto 2rem;
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
     width: 100%;
 }
 
 .article-body h3, .about-section h2 {
-    margin: 2rem 0 1rem;
+    margin: 2.5rem 0 1rem;
     border-bottom: 2px solid var(--soft-gray);
     padding-bottom: 0.5rem;
     text-transform: uppercase;
     font-size: 1.2rem;
-    color: var(--carbon-black);
 }
 
-/* Video Wrapper & Thumbnail */
+/* Tablas */
+.data-wrapper {
+    margin: 2rem 0;
+    overflow-x: auto;
+}
+
+.f1-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--clean-white);
+    font-size: 0.9rem;
+}
+
+.f1-table th {
+    background: var(--track-gray);
+    color: white;
+    text-align: left;
+    padding: 12px;
+    text-transform: uppercase;
+}
+
+.f1-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--soft-gray);
+}
+
+/* Video y Multimedia */
 .video-wrapper {
     margin: 2rem 0;
     background: var(--carbon-black);
     aspect-ratio: 16 / 9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    overflow: hidden;
     border-radius: 4px;
+    overflow: hidden;
     position: relative;
-    text-decoration: none;
-}
-
-.video-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.7;
-    transition: var(--transition);
-}
-
-.video-wrapper:hover img {
-    opacity: 0.9;
 }
 
 .play-button {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 68px;
     height: 48px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(225, 6, 0, 0.9);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
 }
 
 .play-button::after {
@@ -229,19 +256,15 @@ body {
     border-color: transparent transparent transparent white;
 }
 
-/* Wrappers de Datos */
 .chart-wrapper {
-    margin: 2rem 0;
+    margin: 2.5rem 0;
     padding: 1.5rem;
-    background: var(--soft-gray);
+    background: #fff;
+    border: 1px solid var(--soft-gray);
     border-radius: 4px;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
+/* Footer */
 .main-footer {
     background: var(--carbon-black);
     color: var(--clean-white);
@@ -252,5 +275,6 @@ body {
 
 @media (max-width: 768px) {
     .full-article, .about-section { padding: 1.5rem; }
-    .hero h1 { font-size: 2.5rem; }
+    .hero h1 { font-size: 2.2rem; }
+    .nav-bar { padding: 1rem 5%; }
 }
